@@ -8,11 +8,13 @@ import Header from './Header'
 const Layout = () => {
   const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  // const { isAuthenticated } = useSelector((state) => state.user.user)
+  const { isAuthenticated } = useSelector((state) => state.user.user)
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) navigate('/login')
-  // }, [isAuthenticated, navigate])
+  console.log(isAuthenticated)
+
+  useEffect(() => {
+    if (!isAuthenticated) navigate('/login')
+  }, [isAuthenticated, navigate])
 
   return (
     <div className="">

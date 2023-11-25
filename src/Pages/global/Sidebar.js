@@ -4,6 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { SIDEBAR_LINKS } from '../lib/constants/navigation'
 import SidebarLinkGroup from '../../components/SidebarLinkGroup'
 import { useSelector } from 'react-redux'
+import Logout from '../Auth/Logout'
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation()
@@ -187,17 +188,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           }`}
                         >
                           <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                            <li>
-                              <NavLink
-                                to="/"
-                                className={({ isActive }) =>
-                                  'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                  (isActive && '!text-white')
-                                }
-                              >
-                                eCommerce
-                              </NavLink>
-                            </li>
+                            {SIDEBAR_LINKS.map((link) => (
+                              <li key={link.key}>
+                                <NavLink
+                                  to={link.path}
+                                  className={({ isActive }) =>
+                                    'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-white duration-300 ease-in-out hover:text-white ' +
+                                    (isActive && '!text-white')
+                                  }
+                                >
+                                  {link.label}
+                                </NavLink>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                         {/* <!-- Dropdown Menu End --> */}
@@ -205,10 +208,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     )
                   }}
                 </SidebarLinkGroup>
-                {/* <div className="group relative flex items-center gap-2.5 font-semibold rounded-sm py-2  text-dark_color duration-300 ease-in-out">
-                  <img src={logout} className="w-6 h-6" alt="" />
+                <div className="group relative flex items-center gap-2.5 font-semibold rounded-sm py-2 px-4 text-white duration-300 ease-in-out">
+                  {/* <img src={logout} className="w-6 h-6" alt="" /> */}
                   <Logout />
-                </div> */}
+                </div>
               </ul>
             </div>
           </nav>

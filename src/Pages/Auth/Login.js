@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 // import loginLogo from '../../assets/images/loginLogo.svg'
 import { useState } from 'react'
-import axios from 'axios'
 import qs from 'qs'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -9,6 +8,8 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux'
+import axiosInstance from '../../utils/API_SERVICE'
+import { setUserData } from '../../redux/userSlice'
 // import forgotPassword from './ForgotPassword'
 
 function Login() {
@@ -38,72 +39,57 @@ function Login() {
     //     .matches(/[A-Z]/, 'Password requires an uppercase letter')
     //     .matches(/[^\w]/, 'Password requires a symbol'),
     // }),
-    // onSubmit: async () => {
-    //   setLoading(true)
-    //   setError(null)
+    onSubmit: async () => {
+      setLoading(true)
+      setError(null)
+      // navigate('/layout')
 
-    //   const config = {
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded',
-    //       'x-api-key': 987654,
-    //     },
-    //   }
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-api-key': 987654,
+        },
+      }
 
-    //   try {
-    //     const response = await axios.post(
-    //       API_BASE + 'user_login',
-    //       qs.stringify(loginValue.values),
-    //       config
-    //     )
-    //     console.log(response.data)
-    //     if (response.data['status_code'] === '0') {
-    //       const allUserDetails = response.data.user_details
+      try {
+        const response = await axiosInstance.post(
+          'user_login',
+          qs.stringify(loginValue.values),
+          config
+        )
+        console.log(response.data)
 
-    //       const loginUser = allUserDetails.find(
-    //         (user) =>
-    //           user.email.toLowerCase() === loginValue.values.email.toLowerCase()
-    //       )
+        if (response.data['status_code'] === '0') {
+          // const loginUser = response.data.user_details
+          const loginUser = response.data.user_details[0]
+          const { email, user_name, user_type_id, ref_id } = loginUser
+          console.log(loginUser)
 
-    //       const {
-    //         email,
-    //         firstname,
-    //         lastname,
-    //         user_type_id,
-    //         ref_id,
-    //         phonenumber,
-    //         department,
-    //         unit,
-    //       } = loginUser
-    //       console.log(loginUser)
+          dispatch(
+            setUserData({
+              email,
+              user_name,
+              isAuthenticated: +response.data.status_code === 0,
+              role: user_type_id,
+              create_by: ref_id,
+              ref_id,
+            })
+          )
+          toast.success(response.data.message)
+          navigate('/layout')
+        } else {
+          toast.error(response.data.message)
+        }
+        setLoading(false)
+      } catch (error) {
+        toast.error(error.message)
+        console.log(error)
+        setError(error)
+        setLoading(false)
+      }
 
-    //       dispatch(
-    //         setUserData({
-    //           email,
-    //           firstname,
-    //           lastname,
-    //           isAuthenticated: response.data['status_code'] === '0',
-    //           role: user_type_id,
-    //           phonenumber,
-    //           create_by: ref_id,
-    //           department,
-    //           unit,
-    //         })
-    //       )
-    //       toast.success(response.data.message)
-    //       navigate('/layout')
-    //     } else {
-    //       toast.error(response.data.message)
-    //     }
-    //     setLoading(false)
-    //   } catch (error) {
-    //     toast.error(error.message)
-    //     console.log(error)
-    //     setError(error)
-    //     setLoading(false)
-    //   }
-
-    //   console.log(loading)
-    // },
+      console.log(loading)
+    },
   })
 
   return (
@@ -211,7 +197,7 @@ function Login() {
                 </div>
                 <div className="flex items-center justify-between">
                   <button
-                    className="px-4 py-3 mt-5 text-xs font-semibold rounded flex justify-end bg-blue-700 text-white"
+                    className="flex justify-end px-4 py-3 mt-5 text-xs font-semibold text-white bg-blue-700 rounded"
                     type="submit"
                     disabled={loading}
                   >

@@ -5,18 +5,13 @@ export const SIDEBAR_LINKS = [
     path: './',
   },
   {
-    key: 'createSuperAdmin',
-    label: 'Create Super Admin',
-    path: 'createSuperAdmin',
-  },
-  {
-    key: 'createAdmin',
-    label: 'Create Admin',
-    path: 'createAdmin',
-  },
-  {
     key: 'createUser',
     label: 'Create User',
     path: 'createUser',
+  },
+  {
+    key: 'users',
+    label: 'Users',
+    path: 'users',
   },
 ]

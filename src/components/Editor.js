@@ -6,24 +6,23 @@ import 'react-quill/dist/quill.snow.css'
 function Editor({ value, onChange, id, name, placeholder }) {
   const [editorHtml, setEditorHtml] = useState('')
   const [theme, setTheme] = useState('snow')
-  // console.log(value, onChange, id, name)
 
-  // const handleChange = (html) => {
-  //   setEditorHtml(html)
-  // }
+  const handleChange = (html) => {
+    onChange(html)
+  }
 
   return (
     <div>
       <ReactQuill
         theme={theme}
-        onChange={onChange}
+        onChange={handleChange}
         value={value}
         id={id}
         name={name}
         modules={Editor.modules}
         formats={Editor.formats}
         bounds=".app"
-        placeholder="Write any text"
+        placeholder={placeholder}
       />
     </div>
   )
@@ -70,7 +69,6 @@ Editor.formats = [
   'indent',
   'link',
   'image',
-  'video',
 ]
 
 export default Editor

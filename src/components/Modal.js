@@ -1,4 +1,4 @@
-const Modal = ({ isVisible, onClose, children }) => {
+const Modal = ({ isVisible, onClose, children, title }) => {
   if (!isVisible) return null
 
   const handleClose = (e) => {
@@ -11,7 +11,14 @@ const Modal = ({ isVisible, onClose, children }) => {
       onClick={handleClose}
     >
       <div className="relative flex flex-col w-full max-w-5xl max-h-full p-4 overflow-auto bg-white rounded">
-        <div className="text-black px-2">{children}</div>
+        <div className="relative ">
+          <div className="pb-3 border-b">
+            <span>{title}</span>
+            {/* <span className="absolute"></span> */}
+          </div>
+
+          <div className="text-black px-2">{children}</div>
+        </div>
       </div>
     </div>
   )
