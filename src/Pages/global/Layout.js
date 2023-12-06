@@ -10,8 +10,6 @@ const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { isAuthenticated } = useSelector((state) => state.user.user)
 
-  console.log(isAuthenticated)
-
   useEffect(() => {
     if (!isAuthenticated) navigate('/login')
   }, [isAuthenticated, navigate])
@@ -31,7 +29,7 @@ const Layout = () => {
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main className="bg-slate-100 h-full">
+          <main className="h-full bg-slate-100">
             <div className="px-4 pt-8 pb-6 mx-auto max-w-screen-2xl shadow-2 ">
               <Outlet />
             </div>

@@ -9,7 +9,7 @@ import axiosInstance from '../utils/API_SERVICE'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 
-const SendEmail = ({ isVisible, onClose, ref_id }) => {
+const SendEmail = ({ isVisible, onClose, ref_id, id }) => {
   const { email, user_name } = useSelector((state) => state.user.user)
 
   // const [name, setName] = useState('')
@@ -26,6 +26,34 @@ const SendEmail = ({ isVisible, onClose, ref_id }) => {
     setFieldValue('uploadfile', uploadedFile)
   }
 
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await axiosInstance.get(`email_template_list?${ref_id}`)
+    //     setSubj(res.data.result[0].subj)
+    //     setAdlink(res.data.result[0].adlink)
+    //     setAdcontent(res.data.result[0].adcontent)
+    //     setMyAdvert(res.data.result[0].myadvert)
+    //     setReflink(res.data.result[0].reflink)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+
+    // fetchData()
+    axiosInstance.get(`email_template_list?ref_id=${ref_id}`).then((res) => {
+      console.log(res)
+      console.log(ref_id)
+      if (res.data.result.length > 0) {
+        setSubj(res.data.result[0].subj)
+        setAdlink(res.data.result[0].adlink)
+        setAdcontent(res.data.result[0].adcontent)
+        setMyAdvert(res.data.result[0].myadvert)
+        setReflink(res.data.result[0].reflink)
+      }
+    })
+  }, [ref_id])
+
   const initialValues = {
     uploadfile: null,
     name: user_name,
@@ -37,29 +65,10 @@ const SendEmail = ({ isVisible, onClose, ref_id }) => {
     myadvert: myadvert,
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axiosInstance.get(`email_template_list?${ref_id}`)
-        console.log(res.data.result)
-        // setName(res.data.result[0].name)
-        setSubj(res.data.result[0].subj)
-        setAdlink(res.data.result[0].adlink)
-        setAdcontent(res.data.result[0].adcontent)
-        setMyAdvert(res.data.result[0].myadvert)
-        setReflink(res.data.result[0].reflink)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    fetchData()
-  }, [ref_id])
-
   const onSubmit = async (values, { resetForm }) => {
     try {
       if (!file) {
-        console.log('Please upload a file')
+        toast.error('Please upload a file')
         return
       }
 
@@ -101,16 +110,17 @@ const SendEmail = ({ isVisible, onClose, ref_id }) => {
           email: emailAddress,
         }
 
-        // console.log(requestData)
-        const response = await axiosInstance.post(
-          'sending_email',
-          qs.stringify(requestData)
-        )
-        console.log(response.data)
-        if (response.data['status_code'] === '0') {
-          console.log('Bulk emails sent successfully!')
-          onClose()
-        }
+        console.log(requestData)
+        onClose()
+        // const response = await axiosInstance.post(
+        //   'sending_email',
+        //   qs.stringify(requestData)
+        // )
+        // console.log(response.data)
+        // if (response.data['status_code'] === '0') {
+        //   toast.success('Bulk emails sent successfully!')
+        //   onClose()
+        // }
       }
       resetForm()
     } catch (error) {
@@ -195,7 +205,8 @@ const SendEmail = ({ isVisible, onClose, ref_id }) => {
                     className="px-2 py-1 border rounded bg-gray-50 focus:outline-none"
                     name="reflink"
                     id="reflink"
-                    value={bulkEmailFormValues.values.reflink}
+                    // value={bulkEmailFormValues.values.reflink}
+                    value={reflink}
                     onChange={bulkEmailFormValues.handleChange}
                   />
                 </div>
@@ -203,9 +214,12 @@ const SendEmail = ({ isVisible, onClose, ref_id }) => {
                   <label htmlFor="">Advert Content</label>
                   <Editor
                     placeholder="Write anything you want."
-                    // value={adcontent}
-                    value={bulkEmailFormValues.values.adcontent}
+                    value={adcontent}
+                    // value={bulkEmailFormValues.values.adcontent}
                     onChange={(value) => setAdcontent(value)}
+                    // onChange={(value) => {
+                    //   bulkEmailFormValues.setFieldValue('adcontent', value)
+                    // }}
                     id="adcontent"
                     name="adcontent"
                   />

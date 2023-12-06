@@ -3,7 +3,7 @@ import profile from '../../assets/svgs/profile.svg'
 import { useSelector } from 'react-redux'
 
 const Topbar = (props) => {
-  const { email, user_name, role } = useSelector((state) => state.user.user)
+  const { user_name, role } = useSelector((state) => state.user.user)
   return (
     <header className="sticky top-0 z-30 flex w-full bg-white border-b border-border_color drop-shadow-1 ">
       <div className="flex items-center justify-between flex-grow px-1 pt-3 lg:justify-end lg:py-3.5 shadow-2 md:px-6 2xl:px-11">
@@ -20,7 +20,7 @@ const Topbar = (props) => {
           </button>
         </div>
         <div className="flex items-center justify-center gap-3" to="#">
-          <span className="p-3 bg-gray-200 rounded-full">
+          <span className="p-3 mb-2 mr-2 bg-gray-200 rounded-full">
             <img src={profile} className="w-6 h-6" alt="User" />
           </span>
           <span className="hidden lg:block">

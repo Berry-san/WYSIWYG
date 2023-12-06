@@ -5,6 +5,11 @@ export const SIDEBAR_LINKS = [
     path: './',
   },
   {
+    key: 'emailList',
+    label: 'Email List',
+    path: 'emailList',
+  },
+  {
     key: 'createUser',
     label: 'Create User',
     path: 'createUser',

@@ -117,7 +117,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 {/* Menu Item Dashboard */}
                 <SidebarLinkGroup
                   activeCondition={
-                    pathname === '/' || pathname.includes('dashboard')
+                    pathname === '/layout' || pathname.includes('dashboard')
                   }
                 >
                   {(handleClick, open) => {
@@ -126,7 +126,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         <NavLink
                           to="#"
                           className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === '/' ||
+                            (pathname === '/layout' ||
                               pathname.includes('dashboard')) &&
                             'bg-graydark dark:bg-meta-4'
                           }`}
@@ -189,7 +189,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         >
                           <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                             {SIDEBAR_LINKS.map((link) => (
-                              <li key={link.key}>
+                              <li
+                                key={link.key}
+                                onClick={() => setSidebarOpen(!sidebarOpen)}
+                              >
                                 <NavLink
                                   to={link.path}
                                   className={({ isActive }) =>

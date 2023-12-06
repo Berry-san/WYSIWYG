@@ -6,6 +6,7 @@ import Layout from './Pages/global/Layout'
 import Dashboard from './Pages/Dashboard'
 import UserCreation from './Pages/UserCreation'
 import Users from './Pages/Users'
+import EmailList from './Pages/EmailList'
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.user.user)
@@ -21,6 +22,7 @@ function App() {
       />
       <Route path="/layout" element={<Layout />}>
         <Route index element={<Dashboard />} />
+        <Route path="emailList" element={<EmailList />} />
         <Route path="createUser" element={<UserCreation />} />
         <Route path="users" element={<Users />} />
       </Route>
