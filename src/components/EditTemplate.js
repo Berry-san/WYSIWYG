@@ -210,7 +210,7 @@ const EditTemplate = ({ isVisible, onClose, ref_id, id, fetchEmailList }) => {
                 <div className="flex items-center justify-end gap-3">
                   <button
                     type="submit"
-                    className="px-4 py-2 mt-5 text-white bg-purple-500 rounded"
+                    className="px-4 py-2 mt-5 text-white bg-blue-800 rounded"
                   >
                     Submit
                   </button>
