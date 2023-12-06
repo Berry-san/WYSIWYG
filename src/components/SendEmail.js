@@ -42,8 +42,6 @@ const SendEmail = ({ isVisible, onClose, ref_id, id }) => {
 
     // fetchData()
     axiosInstance.get(`email_template_list?ref_id=${ref_id}`).then((res) => {
-      console.log(res)
-      console.log(ref_id)
       if (res.data.result.length > 0) {
         setSubj(res.data.result[0].subj)
         setAdlink(res.data.result[0].adlink)
@@ -110,17 +108,17 @@ const SendEmail = ({ isVisible, onClose, ref_id, id }) => {
           email: emailAddress,
         }
 
-        console.log(requestData)
-        onClose()
-        // const response = await axiosInstance.post(
-        //   'sending_email',
-        //   qs.stringify(requestData)
-        // )
-        // console.log(response.data)
-        // if (response.data['status_code'] === '0') {
-        //   toast.success('Bulk emails sent successfully!')
-        //   onClose()
-        // }
+        // console.log(requestData)
+        // onClose()
+        const response = await axiosInstance.post(
+          'sending_email',
+          qs.stringify(requestData)
+        )
+        console.log(response.data)
+        if (response.data['status_code'] === '0') {
+          toast.success('Bulk emails sent successfully!')
+          onClose()
+        }
       }
       resetForm()
     } catch (error) {
