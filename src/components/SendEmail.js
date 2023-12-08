@@ -27,20 +27,6 @@ const SendEmail = ({ isVisible, onClose, ref_id, id }) => {
   }
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const res = await axiosInstance.get(`email_template_list?${ref_id}`)
-    //     setSubj(res.data.result[0].subj)
-    //     setAdlink(res.data.result[0].adlink)
-    //     setAdcontent(res.data.result[0].adcontent)
-    //     setMyAdvert(res.data.result[0].myadvert)
-    //     setReflink(res.data.result[0].reflink)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-
-    // fetchData()
     axiosInstance.get(`email_template_list?ref_id=${ref_id}`).then((res) => {
       if (res.data.result.length > 0) {
         setSubj(res.data.result[0].subj)

@@ -47,7 +47,7 @@ const Dashboard = () => {
         <div className="flex flex-col p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
           <div className="grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-y-6 md:gap-x-6 xl:grid-cols-4 2xl:gap-x-8">
             <div className="px-8 py-6 bg-white border rounded-md shadow-md border-stroke shadow-default dark:border-strokedark dark:bg-boxdark">
-              <Link to="/layout/emailList">
+              <Link to="/layout/emailReport">
                 <div className="flex flex-col items-center justify-center space-y-3">
                   <div className="bg-green-200 rounded-full">
                     {/* <img

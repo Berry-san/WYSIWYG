@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import Pagination from '../components/Pagination/Pagination'
-import axiosInstance from '../utils/API_SERVICE'
-import EditTemplate from '../components/EditTemplate'
-import CreateTemplate from '../components/CreateTemplate'
-import SendEmail from '../components/SendEmail'
-
+import Pagination from './components/Pagination/Pagination'
+import axiosInstance from './utils/API_SERVICE'
+import EditTemplate from './components/EditTemplate'
+import CreateTemplate from './components/CreateTemplate'
+import SendEmail from './components/SendEmail'
+import XLSXSample from '../src/email template.xlsx'
+import TXTSample from '../src/text template.txt'
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false)
   const [createModal, setCreateModal] = useState(false)
@@ -66,7 +67,30 @@ const Dashboard = () => {
           </div>
           <div></div>
         </div> */}
-        <div className="flex items-end justify-end ">
+        <div className="flex items-center justify-between mt-3 mr-5">
+          <div className="flex">
+            <div className="px-2 font-medium text-gray-600 hover:text-blue-800 cursor-pointer">
+              <a
+                href={TXTSample}
+                download="TXT Template"
+                target="_blank"
+                rel="noreferrer"
+              >
+                TXT Template
+              </a>
+            </div>
+            <div className="px-2 font-medium text-gray-600 hover:text-blue-800 cursor-pointer">
+              <a
+                href={XLSXSample}
+                download="XLSX Template"
+                target="_blank"
+                rel="noreferrer"
+              >
+                XLSX Template
+              </a>
+            </div>
+          </div>
+
           <button
             className="px-3 py-2 text-left text-white capitalize bg-blue-800 rounded cursor-pointer"
             onClick={() => setCreateModal(true)}
